@@ -34,7 +34,7 @@ public class DBConnectionTest1 {
 			PreparedStatement st = conn.prepareStatement(query);
 			
 			// 4. 쿼리문 실행
-			ResultSet rs = st.executeQuery();
+			ResultSet rs = st.executeQuery(); // executeQuery() => SELECT문
 			
 			while(rs.next()) {
 				String empId = rs.getString("emp_id");

@@ -49,7 +49,7 @@ public class PersonTest {
 		st.setString(1, name);
 		st.setString(2, address);
 		
-		int result = st.executeUpdate();
+		int result = st.executeUpdate(); 
 		if(result==1) {
 			System.out.println(name + "님, 추가!");
 		}
@@ -57,20 +57,53 @@ public class PersonTest {
 		closeAll(conn, st);
 	}
 	
-	public void removePerson(int id) {
+	public void removePerson(int id) throws SQLException {
+		Connection conn = getConnect(); // 데이터 베이스랑 연결
+		PreparedStatement st = conn.prepareStatement(p.getProperty("removePerson"));
 		
+		st.setInt(1, id);
+		
+		int result = st.executeUpdate();
+		System.out.println(result + "명 삭제!");
+		
+		closeAll(conn, st);
 	}
 	
-	public void updatePerson(int id, String address) {
+	public void updatePerson(int id, String address) throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("updatePerson"));
 		
+		st.setString(1, address);
+		st.setInt(2, id);
+		
+		int result = st.executeUpdate();
+		System.out.println(result + "명 수정!");
+		
+		closeAll(conn, st);
+	
 	}
 	
-	public void searchAllPerson() {
+	public void searchAllPerson() throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("searchAllPerson"));
 		
+		ResultSet rs = st.executeQuery(); // executeQuery()는 쿼리 정보 그대로 불러오는거 (SELECT)
+		
+		while(rs.next()) {
+			System.out.println(rs.getString("name") + ", "+ rs.getString("address"));
+		}
 	}
 	
-	public void viewPerson(int id) {
+	public void viewPerson(int id) throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("viewPerson"));
 		
+		st.setInt(1, id);
+		
+		ResultSet rs = st.executeQuery();
+		if(rs.next()) {
+			System.out.println(rs.getString("name") + ", "+ rs.getString("address"));
+		}
 	}
 	
 	public static void main(String[] args) {
