@@ -14,9 +14,7 @@ public class MemberController {
 		// id가 없다면 회원가입 후 true 반환
 		// 없다면 false 값 반환
 		try {
-			if(dao.getMember(m.getId())!=null) {
-				return false;
-			} else {
+			if(dao.getMember(m.getId())==null) {
 				dao.registerMember(m);
 				return true;
 			}
