@@ -14,6 +14,10 @@ public class Book {
 		this.bkAuthor = bkAuthor;
 	}
 
+	public Book(int bkNo) {
+		this.bkNo = bkNo;
+	}
+	
 	public int getBkNo() {
 		return bkNo;
 	}

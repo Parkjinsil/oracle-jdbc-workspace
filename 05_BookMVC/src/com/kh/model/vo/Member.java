@@ -20,6 +20,10 @@ public class Member {
 		this.memberName = memberName;
 	}
 
+	public Member(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	
 	public int getMemberNo() {
 		return memberNo;
 	}

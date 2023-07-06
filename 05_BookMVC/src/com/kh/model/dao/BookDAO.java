@@ -121,13 +121,19 @@ public class BookDAO implements BookDAOTemplate{
 		st.setString(2, password);
 		
 		ResultSet rs = st.executeQuery();
-		
+	
+		Member member = null;
 		if(rs.next()) {
-			Member m = new Member(rs.getString("id"), rs.getString("password"), rs.getString("name"));
-			return m;
+			member = new Member();
+			member.setEnrollDate(rs.getDate("enroll_date"));
+			member.setMemberId(rs.getString("member_id"));
+			member.setMemberName(rs.getString("member_name"));
+			member.setMemberNo(rs.getInt("member_no"));
+			member.setMemberPwd(rs.getString("member_pwd"));
+			member.setStatus(rs.getString("status").charAt(0));
 		}
-		
-		return null;
+		closeAll(rs, st, conn);
+		return member;
 	}
 
 	@Override
@@ -181,6 +187,8 @@ public class BookDAO implements BookDAOTemplate{
 		// 조건은 MEMBER_ID로 가져옴
 		Connection conn= getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("printRentBook"));
+		
+		st.setString(1, id);
 		
         ArrayList<Rent> list = new ArrayList<Rent>();
 		
